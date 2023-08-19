@@ -2,6 +2,7 @@ package com.demo.user.controller;
 
 
 import com.demo.user.aop.BaseResponse;
+import com.demo.user.exception.CustomException;
 import com.demo.user.model.PostModel;
 import com.demo.user.service.IPostService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,7 @@ public class PostController {
     IPostService postService;
 
     @GetMapping("/user/{userId}")
-    List<PostModel> getPostByUser(@PathVariable Long userId) throws Exception {
+    List<PostModel> getPostByUser(@PathVariable Long userId) throws CustomException {
 
         return postService.getPostByUser(userId);
     }

@@ -1,13 +1,15 @@
 package com.demo.user.service.impl;
 
 import com.demo.user.config.properties.JsonplaceholderProperties;
+import com.demo.user.exception.CustomException;
 import com.demo.user.model.PostModel;
 import com.demo.user.service.IPostService;
-import com.demo.user.util.OkHttpUtils;
+import com.google.common.collect.Lists;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,14 +22,17 @@ public class PostServiceImpl implements IPostService {
 
     private JsonplaceholderProperties jsonplaceholderProperties;
 
+    private RestTemplate restTemplate;
+
     @Override
-    public List<PostModel> getPostByUser(Long userId) throws Exception {
+    public List<PostModel> getPostByUser(Long userId) throws CustomException {
 
         String url = jsonplaceholderProperties.getUserPostUrl();
         Map<String, String> queryParameter = new HashMap<>();
         queryParameter.put("userId", Long.toString(userId));
 
-        return OkHttpUtils.getList(url,queryParameter, PostModel.class);
+        PostModel[] postModels = restTemplate.getForObject(url,PostModel[].class,queryParameter);
+        return Lists.newArrayList(postModels);
     }
 
 

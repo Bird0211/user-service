@@ -1,4 +1,4 @@
-FROM openjdk:17
+FROM openjdk:20
 VOLUME /tmp
 ARG JAVA_OPTS
 ENV JAVA_OPTS=$JAVA_OPTS

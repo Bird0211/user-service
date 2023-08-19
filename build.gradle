@@ -8,8 +8,8 @@ group = 'com.demo'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '17'
-	targetCompatibility = '17'
+	sourceCompatibility = '20'
+	targetCompatibility = '20'
 }
 
 configurations {
@@ -29,13 +29,19 @@ dependencies {
 	implementation 'org.apache.commons:commons-lang3:3.12.0'
 	implementation 'com.squareup.okhttp3:okhttp:4.11.0'
 	implementation 'org.springframework:spring-aspects:6.0.11'
+	implementation 'com.google.guava:guava:32.1.2-jre'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'org.testng:testng:7.8.0'
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+	useTestNG()
+}
+
+test {
+	useTestNG()
 }
